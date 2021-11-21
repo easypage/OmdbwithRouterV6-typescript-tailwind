@@ -1,0 +1,10 @@
+.form-control:focus+
+.searchDetail{
+  display:block; 
+}
+.searchDetail:hover{
+  display:block; 
+}
+.searchDetail img{
+  height:120px;
+}
