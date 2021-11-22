@@ -1,7 +1,7 @@
 // 액션 정의
 
 import { Dispatch } from 'react';
-import getOmdb from '../../../Api/getOmdb';
+import getOmdb from '../../../Api/getOmdbList';
 import uniqMovieId from '../../lodash/uniqMovieId';
 
 const PENDING = 'movie/LORDING' as const;
@@ -17,6 +17,7 @@ export const success = (payload: { movie: Array<movie>; totalResults: string }) 
 export const error = (payload: string) => ({ type: ERROR, payload });
 
 export const reset = () => ({ type: RESET });
+
 // 액션 타입 및 기본값 정의
 type MovieAction = ReturnType<typeof pending> | ReturnType<typeof success> | ReturnType<typeof error> | ReturnType<typeof reset>;
 
@@ -113,6 +114,7 @@ export const fetchMovie = (movieName: string) => async (dispatch: Dispatch<Movie
 
   //로딩시작
   dispatch(pending());
+
   //api호출
   const resList: omdbResponse | omdbErrorResponse = await getOmdb(movieName);
   //호출 정보에 따라 성공과 실패를 넣어줌
@@ -124,4 +126,5 @@ export const fetchMovie = (movieName: string) => async (dispatch: Dispatch<Movie
   } else {
     dispatch(error(resList.Error));
   }
+  console.log('fetchMovie 끝');
 };

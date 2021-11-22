@@ -1,5 +1,5 @@
 import React from 'react';
-import { movie } from '../module/redux/reducer/SearchMovie';
+import { movie } from '../module/redux/reducer/SearchMovieReducer';
 import SearchDetail from './SearchDetail';
 
 type SearchDropDown = {

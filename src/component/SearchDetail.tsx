@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { movie } from '../module/redux/reducer/SearchMovie';
+import { movie } from '../module/redux/reducer/SearchMovieReducer';
 
 type SearchDetailProps = {
   movie: movie;

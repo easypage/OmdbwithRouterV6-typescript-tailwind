@@ -1,10 +1,12 @@
 import React from 'react';
 import { combineReducers } from 'redux';
-import movie from './SearchMovie';
+import movie from './SearchMovieReducer';
+import movieCard from './MovieCardReducer';
 
 // CreateStore
 const rootReducer = combineReducers({
   movie,
+  movieCard,
 });
 
 export default rootReducer;
