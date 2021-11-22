@@ -5,10 +5,6 @@ import { RootState } from '../../module/redux/reducer/rootReducer';
 import SearchBar from '../SearchBar';
 
 function SearchBarContainer() {
-  const state = useSelector((state: RootState) => state.movie.data);
-  const loading = useSelector((state: RootState) => state.movie.loading);
-  const error = useSelector((state: RootState) => state.movie.error);
-
   const dispatch = useDispatch();
 
   const asyncMovie = useCallback(
@@ -21,7 +17,7 @@ function SearchBarContainer() {
     dispatch(reset());
   }, [dispatch]);
 
-  return <SearchBar loading={loading} movieData={state} asyncMovie={asyncMovie} error={error} resetSearch={resetSearch} />;
+  return <SearchBar asyncMovie={asyncMovie} resetSearch={resetSearch} />;
 }
 
 export default SearchBarContainer;
