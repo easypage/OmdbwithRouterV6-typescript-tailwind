@@ -1,0 +1,21 @@
+import React, {useState, useEffect} from 'react';
+import "./css/Header.css";
+
+function Header() {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const updateScroll = () => {
+        setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+    }
+    useEffect(()=>{
+        window.addEventListener('scroll', updateScroll);
+    });
+    return (
+        <div className="header">
+            <div className={scrollPosition < 100 ? "original_header" : "change_header"}>
+                <p className="title">타이틀</p>
+            </div>
+        </div>
+    )
+}
+
+export default Header;

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import getOmdbmovie from '../Api/getOmdbmovie';
 import '../css/info.css';
 import { fetchMovie } from '../module/redux/reducer/movieInfoReducer';
 

@@ -70,11 +70,6 @@ type omdbResponse = {
   imdbVotes: string;
 };
 
-type omdbErrorResponse = {
-  Error: string;
-  Response: 'False';
-};
-
 // 리듀서 기본값
 const initialState: movieInfo = {
   loading: false,
@@ -128,6 +123,7 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
   if (resList.Response == 'True') {
     // 성공
     console.log('제대로된 로그가 왔습니다.');
+    // 우리가 원하는 형태의 객체로 변환
   } else {
     console.log('이상한 로그가 왔습니다.');
   }
