@@ -59,7 +59,7 @@ type omdbResponse = {
   Ratings: Array<scoreObject>;
   Released: string;
   Response: string;
-  Runtime: string;
+  RunTime: string;
   Title: string;
   Type: string;
   Website: string;
@@ -118,11 +118,21 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
   // dispatch(pending());
 
   //api호출
-  const resList: omdbResponse = await getOmdbmovie(ttid);
+  const resData: omdbResponse = await getOmdbmovie(ttid);
   //호출 정보에 따라 성공과 실패를 넣어줌
-  if (resList.Response == 'True') {
-    // 성공
-    console.log('제대로된 로그가 왔습니다.');
+  if (resData.Response == 'True') {
+    const movie: MovieData = {
+      poster: resData.Poster,
+      title: resData.Title,
+      score: resData.Ratings,
+      released: resData.Released,
+      type: resData.Type,
+      runTime: resData.RunTime,
+      plot: resData.Plot,
+    };
+
+    console.log('무비데이터입니다. ->');
+    console.log(movie);
     // 우리가 원하는 형태의 객체로 변환
   } else {
     console.log('이상한 로그가 왔습니다.');
