@@ -122,6 +122,7 @@ export const fetchMovie = (movieName: string) => async (dispatch: Dispatch<Movie
     const uniq = uniqMovieId(resList.Search);
     const insertSearchData: searchMovieData = { movie: uniq, totalResults: resList.totalResults };
     resList.totalResults;
+
     dispatch(success(insertSearchData));
   } else {
     dispatch(error(resList.Error));
