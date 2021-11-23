@@ -12,7 +12,7 @@ const RESET = 'movie/RESET' as const;
 // 액션생성
 export const pending = () => ({ type: PENDING });
 
-export const success = (payload: { movie: Array<movie>; totalResults: string }) => ({ type: SUCCESS, payload });
+export const success = (payload: searchMovieData) => ({ type: SUCCESS, payload });
 
 export const error = (payload: string) => ({ type: ERROR, payload });
 
@@ -105,7 +105,7 @@ export default function reducer(state: searchMovie = initialState, action: Movie
 }
 
 // thank 액션
-export const fetchMovie = (movieName: string) => async (dispatch: Dispatch<MovieAction>) => {
+export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<MovieAction>) => {
   // 아무값이 없다면 초기화 시켜줍니다.
   if (movieName === '') {
     dispatch(reset());
@@ -127,5 +127,4 @@ export const fetchMovie = (movieName: string) => async (dispatch: Dispatch<Movie
   } else {
     dispatch(error(resList.Error));
   }
-  console.log('fetchMovie 끝');
 };

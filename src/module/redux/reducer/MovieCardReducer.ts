@@ -3,7 +3,7 @@
 import { Dispatch } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from './rootReducer';
-import { fetchMovie, movie } from './SearchMovieReducer';
+import { fetchMovieList, movie } from './SearchMovieReducer';
 
 const INSERT = 'movieCard/INSERT' as const;
 
@@ -39,9 +39,9 @@ export default function reducer(state: searchMovie = initialState, action: Movie
   }
 }
 
-// export const fetchMovieCard = (movieName: string) => async (dispatch: Dispatch<MovieAction>) => {
+// export const fetchMovieListCard = (movieName: string) => async (dispatch: Dispatch<MovieAction>) => {
 //   // 아무값이 없다면 초기화 시켜줍니다.
-//   fetchMovie(movieName);
+//   fetchMovieList(movieName);
 //   //갱신후 리스트 값을 넣어주는 것
 
 //   dispatch(insert(movieList));

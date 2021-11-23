@@ -2,7 +2,6 @@
 .back{
   background-image: url("https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX1900.jpg");
   background-repeat: no-repeat;
-  height: 120vh;
 }
 .back::before{
   position: absolute;
