@@ -1,5 +1,4 @@
 import '../css/resize.css';
-import ResultSliderContainer from './container/ResultSliderContainer';
 import SearchBarContainer from './container/SearchBarContainer';
 
 function SearchMovie() {
@@ -8,8 +7,6 @@ function SearchMovie() {
       <div className="bg-red-100"></div>
 
       <SearchBarContainer />
-
-      <ResultSliderContainer />
     </div>
   );
 }

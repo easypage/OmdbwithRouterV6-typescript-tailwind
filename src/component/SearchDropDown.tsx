@@ -16,6 +16,7 @@ function SearchDropDown({ loading, error, movieData }: SearchDropDown) {
         !loading ? (
           // 에러를 string으로 반환 해줍니다.
           error.length <= 0 ? (
+            movieData &&
             //서치디테일 렌더링
             movieData.map((movie, index) => {
               // 검색 결과 5개

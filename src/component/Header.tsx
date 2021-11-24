@@ -1,19 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import SearchBarContainer from './container/SearchBarContainer';
 
 function Header() {
   return (
     // 로고
-    <div className="flex direc bg-gray-600 h-24 items-center ">
-      <div className="title text-5xl font-Oswald text-white m-4">OMDBAPI TYPE SCRIPT</div>
-      {/* 테스트용메뉴 */}
-      <div className="MENU flex direc  content-end">
-        <NavLink className=" text-2xl font-Oswald" to={'/'}>
-          Search
-        </NavLink>
-        <NavLink className="  text-2xl font-Oswald ml-3" to={'/info/3'}>
-          Info
-        </NavLink>
+    <div className="flex justify-around bg-gray-600 h-24 items-center ">
+      <NavLink className="  font-Oswald" to={'/'}>
+        <div className="title text-2xl font-Oswald text-white ">OMDBAPI</div>
+      </NavLink>
+      <div className="MENU ">
+        <SearchBarContainer />
       </div>
     </div>
   );

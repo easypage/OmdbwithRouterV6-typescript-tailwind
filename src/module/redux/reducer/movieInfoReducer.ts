@@ -1,32 +1,32 @@
 import React, { Dispatch } from 'react';
 import getOmdbmovie from '../../../Api/getOmdbmovie';
 
-const PENDING = 'movie/LORDING' as const;
+const PENDING = 'movieInfo/LORDING' as const;
 // 스켈레톤표현을 위해 사용
-const SUCCESS = 'movie/SUCCESS' as const;
+const SUCCESS = 'movieInfo/SUCCESS' as const;
 // 값입력
-const ERROR = 'movie/ERROR' as const;
+const ERROR = 'movieInfo/ERROR' as const;
 // 오류페이지
 
 // 액션생성
 export const pending = () => ({ type: PENDING });
 
-export const success = (payload: MovieData) => ({ type: SUCCESS, payload });
+export const success = (payload: MovieInfoData) => ({ type: SUCCESS, payload });
 
 export const error = (payload: string) => ({ type: ERROR, payload });
 
 // 액션 타입 및 기본값 정의
-type MovieAction = ReturnType<typeof pending> | ReturnType<typeof success> | ReturnType<typeof error>;
+type MovieInfoAction = ReturnType<typeof pending> | ReturnType<typeof success> | ReturnType<typeof error>;
 
 // 리듀서 state 기본값
 type movieInfo = {
   loading: boolean;
-  data: MovieData;
+  data: MovieInfoData;
   error: string;
 };
 
 // state안 데이터
-export type MovieData = {
+export type MovieInfoData = {
   poster: string;
   title: string;
   score: Array<scoreObject>;
@@ -36,7 +36,7 @@ export type MovieData = {
   plot: string;
 };
 
-type scoreObject = {
+export type scoreObject = {
   Source: string;
   Value: string;
 };
@@ -78,7 +78,7 @@ const initialState: movieInfo = {
 };
 
 // 리듀서
-export default function reducer(state: movieInfo = initialState, action: MovieAction): movieInfo {
+export default function reducer(state: movieInfo = initialState, action: MovieInfoAction): movieInfo {
   switch (action.type) {
     // 호출이 시작될 떄 로딩으로 바꿔줌
     case PENDING:
@@ -108,7 +108,7 @@ export default function reducer(state: movieInfo = initialState, action: MovieAc
 }
 
 // thank 액션
-export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieAction>) => {
+export const fetchMovieInfo = (ttid: string) => async (dispatch: Dispatch<MovieInfoAction>) => {
   // 아무값이 없다면 초기화 시켜줍니다.
   if (ttid === '') {
     // 이름이 없다면 다른 데이터를 입력해 줍니다.
@@ -121,7 +121,7 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
   const resData: omdbResponse = await getOmdbmovie(ttid);
   //호출 정보에 따라 성공과 실패를 넣어줌
   if (resData.Response == 'True') {
-    const movie: MovieData = {
+    const movieInfo: MovieInfoData = {
       poster: resData.Poster,
       title: resData.Title,
       score: resData.Ratings,
@@ -131,7 +131,7 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
       plot: resData.Plot,
     };
 
-    dispatch(success(movie));
+    dispatch(success(movieInfo));
   } else {
     console.log('이상한 로그가 왔습니다.');
     dispatch(error('에러가 발생하였습니다.!'));

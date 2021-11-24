@@ -6,14 +6,14 @@ type MovieInfoScoreProps = {
   value: string;
 };
 
-function MovieInfoScore({ title, value }: MovieInfoScoreProps) {
+function MovieInfoScoreLi({ title, value }: MovieInfoScoreProps) {
   const tooltip = (
     <Tooltip id="tooltip">
       <strong>{title}</strong>
       {/* 받아오기 */}
     </Tooltip>
   );
-  const img: string = `img/${title}.png `;
+  const img: string = `/img/${title}.png `;
   return (
     <OverlayTrigger placement="top" overlay={tooltip}>
       <li className="movieDatabase btn btn-outline-warning rounded-3xl  cursor-default text-lg flex items-center">
@@ -25,4 +25,4 @@ function MovieInfoScore({ title, value }: MovieInfoScoreProps) {
   );
 }
 
-export default MovieInfoScore;
+export default MovieInfoScoreLi;

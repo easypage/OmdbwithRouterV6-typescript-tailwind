@@ -1,23 +1,20 @@
-import React, { CSSProperties, useEffect } from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { CSSProperties, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import '../css/info.css';
-import { fetchMovie, MovieData } from '../module/redux/reducer/movieInfoReducer';
+import { fetchMovieInfo, MovieInfoData } from '../module/redux/reducer/movieInfoReducer';
 import MovieInfoScore from './MovieInfoScore';
 
 type MovieInfoProps = {
   loading: boolean;
   error: string;
-  movie: MovieData;
+  movie: MovieInfoData;
 };
 
 function MovieInfo({ loading, error, movie }: MovieInfoProps) {
   useEffect(() => {
-    console.log(ttid);
-
     if (ttid != undefined) {
-      dispatch(fetchMovie(ttid));
+      dispatch(fetchMovieInfo(ttid));
     }
     return () => {};
   }, []);
@@ -54,11 +51,8 @@ function MovieInfo({ loading, error, movie }: MovieInfoProps) {
 
           {/* map 표현 하기 */}
           <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8">
-            {movie.score.map((score, index) => (
-              <MovieInfoScore title={score.Source} value={score.Value} key={index} />
-            ))}
+            {movie.score && movie.score.map((score, index) => <MovieInfoScore title={score.Source} value={score.Value} key={index} />)}
           </ul>
-
           {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
           {/* 데이터를 리스트로 처리 가능하나 보수를 생각해보니 굳이 데이터를 가공안하고 처리 하겠습니다.*/}
           <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 ">

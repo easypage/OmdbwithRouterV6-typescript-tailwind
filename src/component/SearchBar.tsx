@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { movie, searchMovieData } from '../module/redux/reducer/SearchMovieReducer';
+import { movie } from '../module/redux/reducer/SearchMovieReducer';
 import { debounce } from 'lodash';
 import '../css/SearchFocus.css';
 import SearchDropDownContainer from './container/SearchDropDownContainer';
@@ -8,10 +8,9 @@ type SearchBarProps = {
   movieData: Array<movie>;
   asyncMovie: (name: string) => void;
   resetSearch: () => void;
-  insertMovie: (movie: Array<movie>) => void;
 };
 
-function SearchBar({ asyncMovie, resetSearch, insertMovie, movieData }: SearchBarProps) {
+function SearchBar({ asyncMovie, resetSearch, movieData }: SearchBarProps) {
   const [InputState, InputSetstate] = useState('');
   // 검색후 포커스 해제를 위해 사용
   const ButtonRef = useRef<HTMLButtonElement>(null);
@@ -39,17 +38,14 @@ function SearchBar({ asyncMovie, resetSearch, insertMovie, movieData }: SearchBa
     if (e.key == 'Enter') {
       // 입력후 포커스 해제
       ButtonRef.current?.focus();
-      insertMovie(movieData);
       console.log('입력끝');
     }
   };
 
-  const SearchButton = () => {};
-
   return (
     <div>
       <div>
-        <div className="container p-0 relative flex">
+        <div className="container p-0 relative ">
           <input
             type="text"
             className="form-control relative h-12 "
@@ -66,9 +62,6 @@ function SearchBar({ asyncMovie, resetSearch, insertMovie, movieData }: SearchBa
               InputState !== '' && <SearchDropDownContainer />
             }
           </div>
-          <button ref={ButtonRef} className="btn btn-outline-secondary btn-lg" type="button" onClick={SearchButton}>
-            Search
-          </button>
         </div>
       </div>
     </div>
