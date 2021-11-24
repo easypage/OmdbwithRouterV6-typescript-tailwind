@@ -1,15 +1,15 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Header from './component/Header';
-import MovieInfo from './component/MovieInfo';
 import SearchMovie from './component/SearchMovie';
+import MovieinfoContainer from './component/container/MovieinfoContainer';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/:ttid" element={<MovieInfo />} />
+        <Route path="/:ttid" element={<MovieinfoContainer />} />
       </Routes>
     </div>
   );

@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import '../css/info.css';
-import { fetchMovie } from '../module/redux/reducer/movieInfoReducer';
+import { fetchMovie, MovieData } from '../module/redux/reducer/movieInfoReducer';
+import MovieInfoScore from './MovieInfoScore';
 
-function MovieInfo() {
+type MovieInfoProps = {
+  loading: boolean;
+  error: string;
+  movie: MovieData;
+};
+
+function MovieInfo({ loading, error, movie }: MovieInfoProps) {
   useEffect(() => {
     if (ttid != undefined) {
       dispatch(fetchMovie(ttid));
@@ -18,64 +25,53 @@ function MovieInfo() {
   // 권장 사항이지 필수 사항은 아닙니다. 로딩 등을 관리를 위해 리덕스를 사용하겠습니다.
 
   const { ttid } = useParams();
-  const dispatch = useDispatch();
-  const tooltip = (
-    <Tooltip id="tooltip">
-      <strong>Internet Movie Database</strong>
-    </Tooltip>
-  );
+  const dispatch = useDispatch(); //제거 요망
+
+  // 완성후 삭제
+  // const tooltip = (
+  //   <Tooltip id="tooltip">
+  //     <strong>Internet Movie Database</strong>
+  //   </Tooltip>
+  // );
+  const backCss: CSSProperties = {
+    // 해상도 변환
+    backgroundImage: `url(${movie.poster.replace('300.jpg', '1900.jpg')})`,
+    backgroundRepeat: 'no-repeat',
+  };
 
   return (
-    <div className="back w-full relative bg-cover bg-gray-400  bg-center ">
+    <div className="back w-full relative bg-cover bg-gray-400  bg-center " style={backCss}>
       <main className="container relative flex flex-col items-center text-center ">
+        {/* 포스터 */}
         <figure className="Poster rounded-3xl .shadow-xl w-40 h-56 mt-4">
-          <img className="m-auto " src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX150.jpg" alt="" />
+          <img className="m-auto " src={movie.poster} alt="" />
         </figure>
         <section className="movieInfo">
-          <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8">Frozen</div>
+          {/* 제목 */}
+          <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8">{movie.title}</div>
 
           {/* map 표현 하기 */}
           <ul className="score text-white flex justify-between w-full h-full">
-            <OverlayTrigger placement="top" overlay={tooltip}>
-              <li className="movieDatabase btn btn-outline-warning rounded-3xl  cursor-default text-lg flex items-center">
-                <img src="img/Internet Movie Database.png" className="w-6 rounded-3xl mr-2" alt="" />
-                <p> 7.4/10</p>
-              </li>
-            </OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={tooltip}>
-              <li className="tomatoes btn btn-outline-warning rounded-3xl cursor-default text-lg   flex items-center">
-                <img src="img/Rotten Tomatoes.png" className="w-6 rounded-3xl mr-2" alt="" />
-                <p> 90%</p>
-              </li>
-            </OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={tooltip}>
-              <li className="metacritic btn btn-outline-warning rounded-3xl cursor-default text-lg flex items-center">
-                <img src="img/Metacritic.png" className="w-6 rounded-3xl mr-2" alt="" />
-                <p> 75/100</p>
-              </li>
-            </OverlayTrigger>
+            {movie.score.map((score, index) => (
+              <MovieInfoScore title={score.Source} value={score.Value} key={index} />
+            ))}
           </ul>
           <br />
           <br />
           {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
-          {/* map으로 처리가능 */}
+          {/* 데이터를 리스트로 처리 가능하나 보수를 생각해보니 굳이 데이터를 가공안하고 처리 하겠습니다.*/}
           <ul className="info  w-full text-gray-400 flex justify-around">
-            <li className="type uppercase">movie</li>
+            <li className="type uppercase">{movie.type}</li>
             <li className="line">l</li>
-            <li className="released"> 27 Nov 2013</li>
+            <li className="released"> {movie.released}</li>
             <li className="line">l</li>
-            <li className="runTime">102 min</li>
+            <li className="runTime">{movie.runTime}</li>
           </ul>
+
           <article className="plot text-white whitespace-normal">
             <br />
             <br />
-            Fearless optimist Anna teams up with rugged mountain man Kristoff and his loyal reindeer Sven and sets off on an epic journey to find her sister
-            Elsa, whose icy powers have trapped the kingdom of Arendelle in eternal winter. Encountering Everest-like conditions, mystical trolls and a
-            hilarious snowman named Olaf, Anna and Kristoff battle the elements in a race to save the kingdom. From the outside Elsa looks poised, regal and
-            reserved, but in reality she lives in fear as she wrestles with a mighty secret: she was born with the power to create ice and snow. It's a
-            beautiful ability, but also extremely dangerous. Haunted by the moment her magic nearly killed her younger sister Anna, Elsa has isolated herself,
-            spending every waking minute trying to suppress her growing powers. Her mounting emotions trigger the magic, accidentally setting off an eternal
-            winter that she can't stop. She fears she's becoming a monster and that no one, not even her sister, can help her.
+            {movie.plot}
             <br />
           </article>
         </section>

@@ -59,7 +59,7 @@ type omdbResponse = {
   Ratings: Array<scoreObject>;
   Released: string;
   Response: string;
-  RunTime: string;
+  Runtime: string;
   Title: string;
   Type: string;
   Website: string;
@@ -115,7 +115,7 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
     return;
   }
   //로딩시작
-  // dispatch(pending());
+  dispatch(pending());
 
   //api호출
   const resData: omdbResponse = await getOmdbmovie(ttid);
@@ -127,14 +127,15 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
       score: resData.Ratings,
       released: resData.Released,
       type: resData.Type,
-      runTime: resData.RunTime,
+      runTime: resData.Runtime,
       plot: resData.Plot,
     };
 
     console.log('무비데이터입니다. ->');
     console.log(movie);
-    // 우리가 원하는 형태의 객체로 변환
+    dispatch(success(movie));
   } else {
     console.log('이상한 로그가 왔습니다.');
+    dispatch(error('에러가 발생하였습니다.!'));
   }
 };
