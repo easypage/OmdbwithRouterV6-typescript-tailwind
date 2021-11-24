@@ -14,6 +14,8 @@ type MovieInfoProps = {
 
 function MovieInfo({ loading, error, movie }: MovieInfoProps) {
   useEffect(() => {
+    console.log(ttid);
+
     if (ttid != undefined) {
       dispatch(fetchMovie(ttid));
     }
@@ -35,11 +37,11 @@ function MovieInfo({ loading, error, movie }: MovieInfoProps) {
   // );
   const backCss: CSSProperties = {
     // 해상도 변환
-    backgroundImage: `url(${movie.poster.replace('300.jpg', '1900.jpg')})`,
+    backgroundImage: `url(${movie.poster})`,
     backgroundRepeat: 'no-repeat',
   };
 
-  return (
+  return !loading ? (
     <div className="back w-full relative bg-cover bg-gray-400  bg-center " style={backCss}>
       <main className="container relative flex flex-col items-center text-center ">
         {/* 포스터 */}
@@ -51,16 +53,15 @@ function MovieInfo({ loading, error, movie }: MovieInfoProps) {
           <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8">{movie.title}</div>
 
           {/* map 표현 하기 */}
-          <ul className="score text-white flex justify-between w-full h-full">
+          <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8">
             {movie.score.map((score, index) => (
               <MovieInfoScore title={score.Source} value={score.Value} key={index} />
             ))}
           </ul>
-          <br />
-          <br />
+
           {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
           {/* 데이터를 리스트로 처리 가능하나 보수를 생각해보니 굳이 데이터를 가공안하고 처리 하겠습니다.*/}
-          <ul className="info  w-full text-gray-400 flex justify-around">
+          <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 ">
             <li className="type uppercase">{movie.type}</li>
             <li className="line">l</li>
             <li className="released"> {movie.released}</li>
@@ -68,16 +69,12 @@ function MovieInfo({ loading, error, movie }: MovieInfoProps) {
             <li className="runTime">{movie.runTime}</li>
           </ul>
 
-          <article className="plot text-white whitespace-normal">
-            <br />
-            <br />
-            {movie.plot}
-            <br />
-          </article>
+          <article className="plot text-white whitespace-normal">{movie.plot}</article>
         </section>
       </main>
-      a
     </div>
+  ) : (
+    <h2>로딩중입니다.</h2>
   );
 }
 

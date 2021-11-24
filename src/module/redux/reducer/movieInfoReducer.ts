@@ -131,8 +131,6 @@ export const fetchMovie = (ttid: string) => async (dispatch: Dispatch<MovieActio
       plot: resData.Plot,
     };
 
-    console.log('무비데이터입니다. ->');
-    console.log(movie);
     dispatch(success(movie));
   } else {
     console.log('이상한 로그가 왔습니다.');

@@ -9,7 +9,8 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/:ttid" element={<MovieinfoContainer />} />
+        <Route path="/" element={<SearchMovie />} />
+        <Route path="/info/:ttid" element={<MovieinfoContainer />} />
       </Routes>
     </div>
   );

@@ -8,13 +8,12 @@ function MovieinfoContainer() {
   const state = useSelector((state: RootState) => state.movieInfo);
   const dispatch = useDispatch();
 
-  const loading: boolean = state.loading;
   const data: MovieData = state.data;
   const error: string = state.error;
 
   return (
     <div>
-      <MovieInfo loading={loading} movie={data} error={error} />
+      <MovieInfo loading={state.loading} movie={data} error={error} />
     </div>
   );
 }
