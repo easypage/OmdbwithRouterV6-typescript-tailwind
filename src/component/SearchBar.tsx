@@ -1,8 +1,9 @@
+import '../css/SearchFocus.css';
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { movie } from '../module/redux/reducer/SearchMovieReducer';
 import { debounce } from 'lodash';
-import '../css/SearchFocus.css';
-import SearchDropDownContainer from './container/SearchDropDownContainer';
 
 type SearchBarProps = {
   movieData: Array<movie>;
@@ -42,22 +43,18 @@ function SearchBar({ asyncMovie, resetSearch, movieData }: SearchBarProps) {
   };
 
   return (
-    <div>
-      <div>
-        <div className="container p-0 relative ">
-          <input
-            type="text"
-            className="form-control relative h-12 "
-            placeholder="Please Input Movie Name"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={handleChange}
-            onKeyPress={onKeyPress}
-          />
-          {/* 검색결과 5개 */}
-          <div className="searchDetail z-10 absolute min-w-full top-12 bg-gray-100 rounded-md  hidden"></div>
-        </div>
-      </div>
+    <div className="container p-0 relative ">
+      <input
+        type="text"
+        className="form-control relative h-12 "
+        placeholder="Please Input Movie Name"
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        onChange={handleChange}
+        onKeyPress={onKeyPress}
+      />
+      {/* 검색결과 5개 */}
+      <div className="searchDetail z-10 absolute min-w-full top-12 bg-gray-100 rounded-md  hidden"></div>
     </div>
   );
 }

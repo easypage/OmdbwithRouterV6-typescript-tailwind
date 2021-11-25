@@ -1,9 +1,11 @@
+import '../css/info.css';
+
 import { CSSProperties, useEffect } from 'react';
+
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import '../css/info.css';
 import { fetchMovieInfo, MovieInfoData } from '../module/redux/reducer/movieInfoReducer';
-import InfoHeader from './InfoHeader';
+
 import MovieInfoScore from './MovieInfoScore';
 
 type MovieInfoProps = {
@@ -34,6 +36,7 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
   //     <strong>Internet Movie Database</strong>
   //   </Tooltip>
   // );
+
   const backCss: CSSProperties = {
     // 해상도 변환
     backgroundImage: `url(${movie.poster})`,
@@ -42,8 +45,6 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
 
   return movie.title != '' && !loading ? (
     <div>
-      <InfoHeader />
-
       <div
         className={
           searchMode
@@ -52,10 +53,10 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
         }
         style={backCss}
       >
-        <main className="container pt-12 pb-12 relative flex flex-col items-center  justify-center text-center md:flex-row   xl:h-screen">
+        <main className="container pt-12 pb-12 relative flex flex-col items-center  justify-center text-center md:flex-row   md:h-screen ">
           {/* 포스터 */}
-          <figure className="Poster  w-40 h-56 flex-1 md:w-auto md:h-auto">
-            <img className="m-auto  .shadow-xl rounded-3xl  md:w-2/3 md:2/3" src={movie.poster} alt="" />
+          <figure className="Poster  flex-1 md:w-auto md:h-auto">
+            <img className="m-auto  w-40 h-56  .shadow-xl rounded-3xl  md:w-2/3 md:h-2/3" src={movie.poster} alt="" />
           </figure>
           <section className="movieInfo flex-1 ">
             {/* 제목 */}
@@ -66,7 +67,6 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
               {movie.score && movie.score.map((score, index) => <MovieInfoScore title={score.Source} value={score.Value} key={index} />)}
             </ul>
             {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
-            {/* 데이터를 리스트로 처리 가능하나 보수를 생각해보니 굳이 데이터를 가공안하고 처리 하겠습니다.*/}
             <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 md:justify-evenly md:text-1xl ">
               <li className="type uppercase">{movie.type}</li>
               <li className="line">l</li>
