@@ -7,7 +7,6 @@ import MovieinfoContainer from './component/container/MovieinfoContainer';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Routes>
         <Route path="/" element={<SearchMovie />} />
         <Route path="/info/:ttid" element={<MovieinfoContainer />} />

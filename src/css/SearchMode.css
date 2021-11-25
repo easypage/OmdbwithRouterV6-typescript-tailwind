@@ -1,0 +1,6 @@
+
+.screenBlock{
+  backdrop-filter: blur(2px);
+  background:  linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(48,53,54,0.6278886554621849) 100%);
+
+}

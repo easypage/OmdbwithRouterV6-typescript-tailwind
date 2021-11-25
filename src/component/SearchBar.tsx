@@ -14,7 +14,6 @@ function SearchBar({ asyncMovie, resetSearch, movieData }: SearchBarProps) {
   const [InputState, InputSetstate] = useState('');
   // 검색후 포커스 해제를 위해 사용
   const ButtonRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     resetSearch();
   }, []);
@@ -56,12 +55,7 @@ function SearchBar({ asyncMovie, resetSearch, movieData }: SearchBarProps) {
             onKeyPress={onKeyPress}
           />
           {/* 검색결과 5개 */}
-          <div className="searchDetail z-10 absolute min-w-full top-12 bg-gray-100 rounded-md  hidden">
-            {
-              // 입력 값이 없으면 렌더링 하지 않습니다.
-              InputState !== '' && <SearchDropDownContainer />
-            }
-          </div>
+          <div className="searchDetail z-10 absolute min-w-full top-12 bg-gray-100 rounded-md  hidden"></div>
         </div>
       </div>
     </div>

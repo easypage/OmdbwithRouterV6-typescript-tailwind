@@ -73,7 +73,7 @@ type omdbResponse = {
 // 리듀서 기본값
 const initialState: movieInfo = {
   loading: false,
-  data: { poster: 'test', title: 'test', score: [], released: 'test', type: 'test', runTime: 'test', plot: 'test' },
+  data: { poster: '', title: '', score: [], released: '', type: '', runTime: '', plot: '' },
   error: 'Error Test',
 };
 
