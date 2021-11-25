@@ -13,7 +13,7 @@ function SearchDetail({ movie }: SearchDetailProps) {
       <a href={'/info/' + movie.imdbID} className="text-black ">
         <div className="flex transition-all   justify-between items-center hover:bg-yellow-200 p-3">
           <p className="flex-1">{movie.Title}</p>
-          <img className="searchPoster w-1/3 h-1/5" src={movie.Poster} alt="" />
+          <img className="searchPoster h-16" src={movie.Poster} alt="" />
           <div className="flex-1 text-right">{movie.Year}</div>
         </div>
       </a>

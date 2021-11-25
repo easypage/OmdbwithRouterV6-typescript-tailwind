@@ -7,15 +7,12 @@ import MovieInfo from '../MovieInfo';
 function MovieinfoContainer() {
   const state = useSelector((state: RootState) => state.movieInfo);
   const dispatch = useDispatch();
+  const searchMode = useSelector((state: RootState) => state.searchMode.searchMode);
 
   const data: MovieInfoData = state.data;
   const error: string = state.error;
 
-  return (
-    <div>
-      <MovieInfo loading={state.loading} movie={data} error={error} />
-    </div>
-  );
+  return <MovieInfo loading={state.loading} movie={data} error={error} searchMode={searchMode} />;
 }
 
 export default MovieinfoContainer;

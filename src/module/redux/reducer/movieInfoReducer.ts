@@ -122,7 +122,7 @@ export const fetchMovieInfo = (ttid: string) => async (dispatch: Dispatch<MovieI
   //호출 정보에 따라 성공과 실패를 넣어줌
   if (resData.Response == 'True') {
     const movieInfo: MovieInfoData = {
-      poster: resData.Poster,
+      poster: resData.Poster.replace('SX300.jpg', 'SX1900.jpg'),
       title: resData.Title,
       score: resData.Ratings,
       released: resData.Released,

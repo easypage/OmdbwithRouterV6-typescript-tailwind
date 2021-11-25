@@ -10,9 +10,10 @@ type MovieInfoProps = {
   loading: boolean;
   error: string;
   movie: MovieInfoData;
+  searchMode: boolean;
 };
 
-function MovieInfo({ loading, error, movie }: MovieInfoProps) {
+function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
   useEffect(() => {
     if (ttid != undefined) {
       dispatch(fetchMovieInfo(ttid));
@@ -43,23 +44,30 @@ function MovieInfo({ loading, error, movie }: MovieInfoProps) {
     <div>
       <InfoHeader />
 
-      <div className="back w-full relative bg-cover bg-gray-400  bg-center " style={backCss}>
-        <main className="container pt-12 pb-12 relative flex flex-col items-center text-center ">
+      <div
+        className={
+          searchMode
+            ? 'overflow-hidden back w-full relative bg-cover bg-gray-400 pt-16 bg-center md:h-screen'
+            : 'back w-full relative bg-cover bg-gray-400  bg-center md:h-screen'
+        }
+        style={backCss}
+      >
+        <main className="container pt-12 pb-12 relative flex flex-col items-center  justify-center text-center md:flex-row   xl:h-screen">
           {/* 포스터 */}
-          <figure className="Poster rounded-3xl  .shadow-xl w-40 h-56 ">
-            <img className="m-auto " src={movie.poster} alt="" />
+          <figure className="Poster  w-40 h-56 flex-1 md:w-auto md:h-auto">
+            <img className="m-auto  .shadow-xl rounded-3xl  md:w-2/3 md:2/3" src={movie.poster} alt="" />
           </figure>
-          <section className="movieInfo">
+          <section className="movieInfo flex-1 ">
             {/* 제목 */}
-            <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8">{movie.title}</div>
+            <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8 md:text-8xl">{movie.title}</div>
 
             {/* map 표현 하기 */}
-            <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8">
+            <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8 lg:justify-around ">
               {movie.score && movie.score.map((score, index) => <MovieInfoScore title={score.Source} value={score.Value} key={index} />)}
             </ul>
             {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
             {/* 데이터를 리스트로 처리 가능하나 보수를 생각해보니 굳이 데이터를 가공안하고 처리 하겠습니다.*/}
-            <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 ">
+            <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 md:justify-evenly md:text-1xl ">
               <li className="type uppercase">{movie.type}</li>
               <li className="line">l</li>
               <li className="released"> {movie.released}</li>

@@ -29,12 +29,12 @@ function InfoHeader() {
 
   return (
     <div>
-      <div>
+      <div className={SearchMode.searchMode ? 'fixed top-0 z-50 w-full' : ' z-50 w-full'}>
         <div
           className={
             SearchMode.searchMode
-              ? 'top-0 bg-black fixed items-center flex justify-around w-full h-24  z-50'
-              : 'top-0 bg-black  items-center flex justify-around w-full h-24  z-50 searchMode'
+              ? 'top-0 bg-black items-center flex justify-around w-full h-16  z-50'
+              : 'top-0 bg-black  items-center flex justify-around w-full h-16  z-50 searchMode'
           }
         >
           <NavLink className={SearchMode.searchMode ? 'hidden' : 'font-Oswald'} to={'/'}>
@@ -46,11 +46,14 @@ function InfoHeader() {
           <div className={SearchMode.searchMode ? 'w-full' : 'MENU '} onFocus={focus}>
             <SearchBarContainer />
           </div>
-          <div className={SearchMode.searchMode ? 'screenBlock fixed w-full h-full bg-transparent top-20' : 'hidden'} onClick={blur}></div>
         </div>
-        <SearchDropDownContainer />
+        {SearchMode.searchMode && (
+          <div className=" relative z-50 bg-white">
+            <SearchDropDownContainer />
+          </div>
+        )}
+        <div className={SearchMode.searchMode ? 'screenBlock z-10;  fixed w-full h-full bg-transparent top-16' : 'hidden'} onClick={blur}></div>
       </div>
-      <div className={SearchMode.searchMode ? 'h-24' : 'hidden'}></div>
     </div>
   );
 }

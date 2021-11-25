@@ -16,7 +16,7 @@ function MovieInfoScoreLi({ title, value }: MovieInfoScoreProps) {
   const img: string = `/img/${title}.png `;
   return (
     <OverlayTrigger placement="top" overlay={tooltip}>
-      <li className="movieDatabase btn btn-outline-warning rounded-3xl  cursor-default text-lg flex items-center">
+      <li className="movieDatabase btn btn-outline-warning rounded-3xl  cursor-default text-lg flex items-center xl:text-3xl">
         {/* 받아오기 */}
         <img src={img} className="w-6 rounded-3xl mr-2" alt="" />
         <p> {value}</p>
