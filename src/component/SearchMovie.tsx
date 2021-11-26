@@ -2,11 +2,11 @@ import '../css/resize.css';
 
 import { searchMovieData } from '../module/redux/reducer/SearchMovieReducer';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import SearchBarContainer from './container/SearchBarContainer';
 import Loading from './Loading';
-import MovieCard from './MovieCard';
+import SearchMovieList from './SearchMovieList';
 type SearchMovieProps = {
   searchData: searchMovieData;
   loading: boolean;
@@ -14,13 +14,6 @@ type SearchMovieProps = {
 };
 
 function SearchMovie({ searchData, addMovieList, loading }: SearchMovieProps) {
-  const [page, setPage] = useState(2);
-  const target = useRef<HTMLDivElement>(null);
-
-  const add = () => {
-    addMovieList(page);
-    setPage((page) => page + 1);
-  };
   return (
     <div className=" text-center md:mt-40 lg:mt-80">
       {/* 타이틀 */}
@@ -34,18 +27,15 @@ function SearchMovie({ searchData, addMovieList, loading }: SearchMovieProps) {
       {/* 이부분에 무한 스크롤 적용 가능 */}
       {/* 결과값 출력 */}
       <div className="flex flex-wrap container p-0 ">
-        {searchData.movie.length !== 0 && searchData.movie.map((movie, index) => <MovieCard movie={movie} key={index} />)}
+        {searchData.movie.length !== 0 && <SearchMovieList movieData={searchData} addList={addMovieList} loading={loading} />}
       </div>
 
-      {/* 로딩 */}
-      {loading && <Loading />}
-
-      {/* more버튼 */}
-      {Number(searchData.totalResults) / (10 * (page - 1)) > 1 && (
+      {/* more버튼
+      {loadAble && (
         <button onClick={add} className="btn btn-warning container text-2xl w-full font-Oswald">
           Read more...
         </button>
-      )}
+      )} */}
     </div>
   );
 }

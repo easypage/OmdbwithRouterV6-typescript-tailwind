@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// apikey부분을 넣어주세요!!
+
 async function getOmdbList(name: String, page?: number) {
   //에러 값 처리
   if (name === '') {
