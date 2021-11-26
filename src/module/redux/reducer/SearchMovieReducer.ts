@@ -6,6 +6,8 @@ import uniqMovieId from '../../lodash/uniqMovieId';
 
 const PENDING = 'movie/LORDING' as const;
 const SUCCESS = 'movie/SUCCESS' as const;
+const ADD = 'movie/ADD' as const;
+const SEARCH = 'movie/SEARCH' as const;
 const ERROR = 'movie/ERROR' as const;
 const RESET = 'movie/RESET' as const;
 
@@ -14,18 +16,29 @@ export const pending = () => ({ type: PENDING });
 
 export const success = (payload: searchMovieData) => ({ type: SUCCESS, payload });
 
+export const add = (payload: movie[]) => ({ type: ADD, payload });
+
+export const search = (payload: string) => ({ type: SEARCH, payload });
+
 export const error = (payload: string) => ({ type: ERROR, payload });
 
 export const reset = () => ({ type: RESET });
 
 // 액션 타입 및 기본값 정의
-type MovieAction = ReturnType<typeof pending> | ReturnType<typeof success> | ReturnType<typeof error> | ReturnType<typeof reset>;
+type MovieAction =
+  | ReturnType<typeof pending>
+  | ReturnType<typeof success>
+  | ReturnType<typeof error>
+  | ReturnType<typeof add>
+  | ReturnType<typeof search>
+  | ReturnType<typeof reset>;
 
 // 리듀서 state 기본값
 type searchMovie = {
   loading: boolean;
   data: searchMovieData;
   error: string;
+  searchValue: string;
 };
 
 export type searchMovieData = {
@@ -62,6 +75,7 @@ const initialState: searchMovie = {
     totalResults: '0',
   },
   error: '',
+  searchValue: '',
 };
 
 // 리듀서
@@ -89,6 +103,24 @@ export default function reducer(state: searchMovie = initialState, action: Movie
         loading: false,
         error: action.payload,
       };
+    // 데이터추가로딩
+    case ADD:
+      return {
+        ...state,
+        loading: false,
+        data: {
+          totalResults: state.data.totalResults,
+          movie: [...state.data.movie, ...action.payload],
+        },
+        error: '',
+      };
+    // 검색값
+    case SEARCH:
+      return {
+        ...state,
+        searchValue: action.payload,
+      };
+    // 초기화
     case RESET:
       return {
         loading: false,
@@ -97,6 +129,7 @@ export default function reducer(state: searchMovie = initialState, action: Movie
           totalResults: '0',
         },
         error: '',
+        searchValue: '',
       };
 
     default:
@@ -111,6 +144,8 @@ export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<M
     dispatch(reset());
     return;
   }
+  // 입력값저장
+  dispatch(search(movieName));
 
   //로딩시작
   dispatch(pending());
@@ -119,12 +154,46 @@ export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<M
   const resList: omdbResponse | omdbErrorResponse = await getOmdb(movieName);
   //호출 정보에 따라 성공과 실패를 넣어줌
   if (resList.Response == 'True') {
+    // 겹치는 id제거
+    const uniq = uniqMovieId(resList.Search);
+    const insertSearchData: searchMovieData = { movie: uniq, totalResults: resList.totalResults };
+    resList.totalResults;
+    // 데이터 입력
+    dispatch(success(insertSearchData));
+  } else {
+    dispatch(error(resList.Error));
+  }
+};
+
+export const addMovieList = (movieName: string, page: number) => async (dispatch: Dispatch<MovieAction>) => {
+  // 아무값이 없다면 초기화 시켜줍니다.
+  console.log(movieName);
+  console.log(page);
+  if (movieName === '') {
+    dispatch(reset());
+    return;
+  }
+
+  //로딩시작
+  dispatch(pending());
+
+  //api호출
+  const resList: omdbResponse | omdbErrorResponse = await getOmdb(movieName, page);
+
+  //호출 정보에 따라 성공과 실패를 넣어줌
+  if (resList.Response == 'True') {
     const uniq = uniqMovieId(resList.Search);
     const insertSearchData: searchMovieData = { movie: uniq, totalResults: resList.totalResults };
     resList.totalResults;
 
-    dispatch(success(insertSearchData));
+    console.log(insertSearchData.totalResults);
+
+    dispatch(add(insertSearchData.movie));
   } else {
+    if (resList.Error === 'Movie not found!') {
+      return;
+    }
+
     dispatch(error(resList.Error));
   }
 };

@@ -2,9 +2,8 @@ import '../css/info.css';
 
 import { CSSProperties, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import { fetchMovieInfo, MovieInfoData } from '../module/redux/reducer/movieInfoReducer';
+import { MovieInfoData } from '../module/redux/reducer/movieInfoReducer';
 
 import MovieInfoScore from './MovieInfoScore';
 
@@ -13,12 +12,13 @@ type MovieInfoProps = {
   error: string;
   movie: MovieInfoData;
   searchMode: boolean;
+  fetchMoviInfo: (ttid: string) => void;
 };
 
-function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
+function MovieInfo({ loading, error, movie, searchMode, fetchMoviInfo }: MovieInfoProps) {
   useEffect(() => {
     if (ttid != undefined) {
-      dispatch(fetchMovieInfo(ttid));
+      fetchMoviInfo(ttid);
     }
     return () => {};
   }, []);
@@ -28,7 +28,6 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
   // 권장 사항이지 필수 사항은 아닙니다. 로딩 등을 관리를 위해 리덕스를 사용하겠습니다.
 
   const { ttid } = useParams();
-  const dispatch = useDispatch(); //제거 요망
 
   // 완성후 삭제
   // const tooltip = (
@@ -56,11 +55,11 @@ function MovieInfo({ loading, error, movie, searchMode }: MovieInfoProps) {
         <main className="container pt-12 pb-12 relative flex flex-col items-center  justify-center text-center md:flex-row   md:h-screen ">
           {/* 포스터 */}
           <figure className="Poster  flex-1 md:w-auto md:h-auto">
-            <img className="m-auto  w-40 h-56  .shadow-xl rounded-3xl  md:w-2/3 md:h-2/3" src={movie.poster} alt="" />
+            <img className="m-auto  w-40 h-56  .shadow-xl rounded-3xl  md:w-1/2 md:h-1/2" src={movie.poster} alt="" />
           </figure>
           <section className="movieInfo flex-1 ">
             {/* 제목 */}
-            <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8 md:text-8xl">{movie.title}</div>
+            <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8 md:text-7xl">{movie.title}</div>
 
             {/* map 표현 하기 */}
             <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8 lg:justify-around ">

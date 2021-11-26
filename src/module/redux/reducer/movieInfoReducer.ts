@@ -133,7 +133,6 @@ export const fetchMovieInfo = (ttid: string) => async (dispatch: Dispatch<MovieI
 
     dispatch(success(movieInfo));
   } else {
-    console.log('이상한 로그가 왔습니다.');
     dispatch(error('에러가 발생하였습니다.!'));
   }
 };

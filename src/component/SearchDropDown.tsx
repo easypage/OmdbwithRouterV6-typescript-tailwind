@@ -1,4 +1,3 @@
-import React from 'react';
 import { movie } from '../module/redux/reducer/SearchMovieReducer';
 import SearchDetail from './SearchDetail';
 
@@ -32,7 +31,7 @@ function SearchDropDown({ loading, error, movieData }: SearchDropDown) {
             })
           ) : (
             // 에러컴포넌트
-            <h2>{error}</h2>
+            <p className="text-xl">{error}</p>
           )
         ) : (
           // 로딩
