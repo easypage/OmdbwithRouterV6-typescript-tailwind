@@ -6,16 +6,17 @@ import { useParams } from 'react-router';
 import { MovieInfoData } from '../module/redux/reducer/movieInfoReducer';
 
 import MovieInfoScore from './MovieInfoScore';
+import MovieInfoLoading from './MovieInfoLoading';
 
 type MovieInfoProps = {
   loading: boolean;
-  error: string;
+
   movie: MovieInfoData;
   searchMode: boolean;
   fetchMoviInfo: (ttid: string) => void;
 };
 
-function MovieInfo({ loading, error, movie, searchMode, fetchMoviInfo }: MovieInfoProps) {
+function MovieInfo({ loading, movie, searchMode, fetchMoviInfo }: MovieInfoProps) {
   useEffect(() => {
     if (ttid != undefined) {
       fetchMoviInfo(ttid);
@@ -47,26 +48,27 @@ function MovieInfo({ loading, error, movie, searchMode, fetchMoviInfo }: MovieIn
       <div
         className={
           searchMode
-            ? 'overflow-hidden back w-full relative bg-cover bg-gray-400 pt-16 bg-center md:h-screen'
-            : 'back w-full relative bg-cover bg-gray-400  bg-center md:h-screen'
+            ? ' back relative overflow-hidden w-full  pt-16  bg-cover bg-gray-400 bg-center md:h-screen'
+            : 'back relative w-full  bg-cover bg-gray-400  bg-center md:h-screen'
         }
         style={backCss}
       >
-        <main className="container pt-12 pb-12 relative flex flex-col items-center  justify-center text-center md:flex-row   md:h-screen ">
+        <main className="container relative  pt-12 pb-12 flex flex-col items-center  justify-center text-center md:flex-row   md:h-screen ">
           {/* 포스터 */}
           <figure className="Poster  flex-1 md:w-auto md:h-auto">
-            <img className="m-auto  w-40 h-56  .shadow-xl rounded-3xl  md:w-1/2 md:h-1/2" src={movie.poster} alt="" />
+            <img className="m-auto  w-40 h-56  .shadow-xl rounded-3xl  md:w-2/3 md:h-2/3" src={movie.poster} alt="" />
           </figure>
+
           <section className="movieInfo flex-1 ">
             {/* 제목 */}
-            <div className="title text-white text-5xl whitespace-normal font-bold mb-8 mt-8 md:text-7xl">{movie.title}</div>
+            <div className="title mb-8 mt-8 text-white text-5xl whitespace-normal font-bold md:text-7xl">{movie.title}</div>
 
             {/* map 표현 하기 */}
-            <ul className="score text-white flex justify-between w-full h-full mb-8 mt-8 lg:justify-around ">
+            <ul className="score w-full h-full mb-8 mt-8 text-white flex justify-between  lg:justify-around ">
               {movie.score && movie.score.map((score, index) => <MovieInfoScore title={score.Source} value={score.Value} key={index} />)}
             </ul>
             {/* FLEX AROUND로 확실한 간격마다 줄을 긋기 위해 line이라는 클래스 추가 */}
-            <ul className="info  w-full text-gray-400 flex justify-around mb-8 mt-8 md:justify-evenly md:text-1xl ">
+            <ul className="info  w-full mb-8 mt-8 text-gray-400 flex justify-around md:justify-evenly md:text-1xl ">
               <li className="type uppercase">{movie.type}</li>
               <li className="line">l</li>
               <li className="released"> {movie.released}</li>
@@ -80,7 +82,7 @@ function MovieInfo({ loading, error, movie, searchMode, fetchMoviInfo }: MovieIn
       </div>
     </div>
   ) : (
-    <h2>로딩중입니다.</h2> // 로딩페이지 만들기
+    <MovieInfoLoading />
   );
 }
 

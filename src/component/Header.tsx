@@ -5,10 +5,11 @@ import SearchBarContainer from './container/SearchBarContainer';
 function Header() {
   return (
     // 로고
-    <div className="flex w-full justify-around top-0 bg-black h-24  items-center ">
+    <div className="flex w-full h-24 bg-black justify-around items-center top-0     ">
       <NavLink className="  font-Oswald" to={'/'}>
         <div className="title text-2xl font-Oswald text-white ">OMDBAPI</div>
       </NavLink>
+
       <div className="MENU ">
         <SearchBarContainer />
       </div>

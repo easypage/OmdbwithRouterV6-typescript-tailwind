@@ -1,41 +1,26 @@
-import '../css/resize.css';
+import { useSelector } from 'react-redux';
 
-import { searchMovieData } from '../module/redux/reducer/SearchMovieReducer';
-
-import { useState } from 'react';
+import { RootState } from '../module/redux/reducer/rootReducer';
 
 import SearchBarContainer from './container/SearchBarContainer';
-import Loading from './Loading';
-import SearchMovieList from './SearchMovieList';
-type SearchMovieProps = {
-  searchData: searchMovieData;
-  loading: boolean;
-  addMovieList: (page: number) => void;
-};
+import SearchMovieListContainer from './container/SearchMovieListContainer';
 
-function SearchMovie({ searchData, addMovieList, loading }: SearchMovieProps) {
+function SearchMovie() {
+  const state = useSelector((state: RootState) => state.movie.data.movie);
+
   return (
     <div className=" text-center md:mt-40 lg:mt-80">
       {/* 타이틀 */}
       <div className="bg-red-100"></div>
-      <h1 className="text-6xl font-Oswald mt-8 mb-8">
+      <h1 className=" mt-8 mb-8 text-6xl font-Oswald">
         <p className="text-yellow-500 inline">OMDB</p> API
       </h1>
 
       {/* 검색창 */}
       <SearchBarContainer />
-      {/* 이부분에 무한 스크롤 적용 가능 */}
+      {/* 이부분에 state.length를 적용하는 이유 -> useEffect의 observe 리턴을 좀더 관리 잘하기 위해 */}
       {/* 결과값 출력 */}
-      <div className="flex flex-wrap container p-0 ">
-        {searchData.movie.length !== 0 && <SearchMovieList movieData={searchData} addList={addMovieList} loading={loading} />}
-      </div>
-
-      {/* more버튼
-      {loadAble && (
-        <button onClick={add} className="btn btn-warning container text-2xl w-full font-Oswald">
-          Read more...
-        </button>
-      )} */}
+      {state.length !== 0 && <SearchMovieListContainer />}
     </div>
   );
 }

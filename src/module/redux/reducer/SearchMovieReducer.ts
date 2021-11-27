@@ -167,8 +167,6 @@ export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<M
 
 export const addMovieList = (movieName: string, page: number) => async (dispatch: Dispatch<MovieAction>) => {
   // 아무값이 없다면 초기화 시켜줍니다.
-  console.log(movieName);
-  console.log(page);
   if (movieName === '') {
     dispatch(reset());
     return;
@@ -185,8 +183,6 @@ export const addMovieList = (movieName: string, page: number) => async (dispatch
     const uniq = uniqMovieId(resList.Search);
     const insertSearchData: searchMovieData = { movie: uniq, totalResults: resList.totalResults };
     resList.totalResults;
-
-    console.log(insertSearchData.totalResults);
 
     dispatch(add(insertSearchData.movie));
   } else {

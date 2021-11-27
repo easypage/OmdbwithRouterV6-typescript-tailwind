@@ -1,5 +1,3 @@
-import '../css/SearchFocus.css';
-
 import React, { useCallback, useEffect } from 'react';
 
 import { movie } from '../module/redux/reducer/SearchMovieReducer';
@@ -41,7 +39,6 @@ function SearchBar({ asyncMovie, resetSearch, movieData }: SearchBarProps) {
         aria-describedby="basic-addon2"
         onChange={handleChange}
       />
-      <div className="searchDetail z-10 absolute min-w-full top-12 bg-gray-100 rounded-md  hidden"></div>
     </div>
   );
 }
