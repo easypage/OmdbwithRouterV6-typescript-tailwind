@@ -48,7 +48,7 @@ function MovieInfo({ loading, movie, searchMode, fetchMoviInfo }: MovieInfoProps
       <div
         className={
           searchMode
-            ? ' back relative overflow-hidden w-full  pt-16  bg-cover bg-gray-400 bg-center md:h-screen'
+            ? 'back relative overflow-hidden w-full  bg-cover bg-gray-400 bg-center md:h-screen'
             : 'back relative w-full  bg-cover bg-gray-400  bg-center md:h-screen'
         }
         style={backCss}
