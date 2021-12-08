@@ -21,7 +21,7 @@ function MovieinfoContainer() {
   const data: MovieInfoData = state.data;
   const error: string = state.error;
 
-  return <MovieInfo loading={state.loading} movie={data} error={error} searchMode={searchMode} fetchMoviInfo={fetchMovie} />;
+  return <MovieInfo loading={state.loading} movie={data} searchMode={searchMode} fetchMoviInfo={fetchMovie} />;
 }
 
 export default MovieinfoContainer;

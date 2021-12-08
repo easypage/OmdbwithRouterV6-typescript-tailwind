@@ -140,12 +140,12 @@ export default function reducer(state: searchMovie = initialState, action: Movie
 // thank 액션
 export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<MovieAction>) => {
   // 아무값이 없다면 초기화 시켜줍니다.
+  // 입력값저장
+  dispatch(search(movieName));
   if (movieName === '') {
     dispatch(reset());
     return;
   }
-  // 입력값저장
-  dispatch(search(movieName));
 
   //로딩시작
   dispatch(pending());
@@ -167,8 +167,6 @@ export const fetchMovieList = (movieName: string) => async (dispatch: Dispatch<M
 
 export const addMovieList = (movieName: string, page: number) => async (dispatch: Dispatch<MovieAction>) => {
   // 아무값이 없다면 초기화 시켜줍니다.
-  console.log(movieName);
-  console.log(page);
   if (movieName === '') {
     dispatch(reset());
     return;
@@ -186,11 +184,11 @@ export const addMovieList = (movieName: string, page: number) => async (dispatch
     const insertSearchData: searchMovieData = { movie: uniq, totalResults: resList.totalResults };
     resList.totalResults;
 
-    console.log(insertSearchData.totalResults);
-
     dispatch(add(insertSearchData.movie));
   } else {
     if (resList.Error === 'Movie not found!') {
+      console.log(resList.Error);
+
       return;
     }
 

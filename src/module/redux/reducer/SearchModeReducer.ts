@@ -1,4 +1,3 @@
-import React from 'react';
 const SEARCHMODEON = 'SearchMode/searchModeOn' as const;
 const SEARCHMODEOFF = 'SearchMode/searchModeOff' as const;
 

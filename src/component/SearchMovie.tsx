@@ -1,51 +1,26 @@
-import '../css/resize.css';
+import { useSelector } from 'react-redux';
 
-import { searchMovieData } from '../module/redux/reducer/SearchMovieReducer';
-
-import { useEffect, useRef, useState } from 'react';
+import { RootState } from '../module/redux/reducer/rootReducer';
 
 import SearchBarContainer from './container/SearchBarContainer';
-import Loading from './Loading';
-import MovieCard from './MovieCard';
-type SearchMovieProps = {
-  searchData: searchMovieData;
-  loading: boolean;
-  addMovieList: (page: number) => void;
-};
+import SearchMovieListContainer from './container/SearchMovieListContainer';
 
-function SearchMovie({ searchData, addMovieList, loading }: SearchMovieProps) {
-  const [page, setPage] = useState(2);
-  const target = useRef<HTMLDivElement>(null);
+function SearchMovie() {
+  const state = useSelector((state: RootState) => state.movie.data.movie);
 
-  const add = () => {
-    addMovieList(page);
-    setPage((page) => page + 1);
-  };
   return (
     <div className=" text-center md:mt-40 lg:mt-80">
       {/* 타이틀 */}
       <div className="bg-red-100"></div>
-      <h1 className="text-6xl font-Oswald mt-8 mb-8">
+      <h1 className=" mt-8 mb-8 text-6xl font-Oswald">
         <p className="text-yellow-500 inline">OMDB</p> API
       </h1>
 
       {/* 검색창 */}
       <SearchBarContainer />
-      {/* 이부분에 무한 스크롤 적용 가능 */}
+      {/* 이부분에 state.length를 적용하는 이유 -> useEffect의 observe 리턴을 좀더 관리 잘하기 위해 */}
       {/* 결과값 출력 */}
-      <div className="flex flex-wrap container p-0 ">
-        {searchData.movie.length !== 0 && searchData.movie.map((movie, index) => <MovieCard movie={movie} key={index} />)}
-      </div>
-
-      {/* 로딩 */}
-      {loading && <Loading />}
-
-      {/* more버튼 */}
-      {Number(searchData.totalResults) / (10 * (page - 1)) > 1 && (
-        <button onClick={add} className="btn btn-warning container text-2xl w-full font-Oswald">
-          Read more...
-        </button>
-      )}
+      {state.length !== 0 && <SearchMovieListContainer />}
     </div>
   );
 }
